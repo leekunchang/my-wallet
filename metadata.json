@@ -1,6 +1,6 @@
 {
-  "name": "15일 기준 생활비 잔액 관리기",
-  "description": "매달 15일 월급일 기준 다음 급여일까지의 남은 기간과 입금액 대비 잔여 생활비 비율을 한눈에 시각화해주는 생활비 계산기",
+  "name": "급여일 기준 생활비 가계부 & 잔액 관리기",
+  "description": "급여일(15일 등) 설정, 가계부 지출 입력과 AI 카테고리 자동 분류, 잔액 실시간 연동, 카테고리별 소비 시각화 표 및 차트를 제공하는 스마트 생활비 매니저",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

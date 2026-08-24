@@ -10,6 +10,7 @@ interface CycleProgressCardProps {
 export const CycleProgressCard: React.FC<CycleProgressCardProps> = ({ cycleInfo }) => {
   const {
     currentDate,
+    paydayDay,
     startDate,
     endDate,
     totalDays,
@@ -45,7 +46,7 @@ export const CycleProgressCard: React.FC<CycleProgressCardProps> = ({ cycleInfo 
             <Calendar className="w-4 h-4 text-blue-600" />
             현재일: {formatKoreanDate(currentDate)}
           </span>
-          <span className="text-slate-400">총 {totalDays}일 주기</span>
+          <span className="text-slate-400">총 {totalDays}일 주기 ({paydayDay}일 기준)</span>
         </div>
 
         {/* 원형 시각화 게이지 & 수치 */}
@@ -88,7 +89,7 @@ export const CycleProgressCard: React.FC<CycleProgressCardProps> = ({ cycleInfo 
             <div className="flex items-center justify-between text-xs pb-1.5 border-b border-slate-100">
               <span className="text-slate-500 flex items-center gap-1.5">
                 <Hourglass className="w-3.5 h-3.5 text-blue-500" />
-                다음 15일까지 남은 일수
+                다음 {paydayDay}일까지 남은 일수
               </span>
               <span className="font-bold text-slate-900 text-sm">{daysRemaining}일</span>
             </div>
@@ -98,46 +99,29 @@ export const CycleProgressCard: React.FC<CycleProgressCardProps> = ({ cycleInfo 
                 <Clock className="w-3.5 h-3.5 text-slate-400" />
                 이번 주기 경과한 일수
               </span>
-              <span className="font-semibold text-slate-700">{daysPassed}일 경과 ({timePassedPercent}%)</span>
+              <span className="font-semibold text-slate-700">{daysPassed}일</span>
             </div>
 
-            <div className="flex items-center justify-between text-xs">
-              <span className="text-slate-500">주기 총 기간</span>
-              <span className="font-semibold text-slate-700">{totalDays}일</span>
+            <div className="flex items-center justify-between text-xs pt-0.5">
+              <span className="text-slate-500">지난 기간 비율</span>
+              <span className="font-semibold text-slate-600">{timePassedPercent}%</span>
             </div>
           </div>
         </div>
-      </div>
-
-      {/* 하단 주기 타임라인 시각화 바 */}
-      <div className="mt-4 pt-3.5 border-t border-slate-100">
-        <div className="flex items-center justify-between text-xs font-semibold text-slate-600 mb-1.5">
-          <span className="flex items-center gap-1">
-            시작 {formatShortDate(startDate)}
-          </span>
-          <ArrowRight className="w-3 h-3 text-slate-300" />
-          <span className="text-blue-700 font-bold">
-            다음 급여 {formatShortDate(endDate)}
-          </span>
-        </div>
 
         {/* 선형 진행 바 */}
-        <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden flex p-0.5 border border-slate-200/60">
-          <div
-            className="h-full bg-slate-300 rounded-l-full transition-all duration-500"
-            style={{ width: `${timePassedPercent}%` }}
-            title={`경과 ${timePassedPercent}%`}
-          />
-          <div
-            className="h-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-r-full transition-all duration-500"
-            style={{ width: `${timeRemainingPercent}%` }}
-            title={`남은 기간 ${timeRemainingPercent}%`}
-          />
-        </div>
-
-        <div className="flex justify-between text-[11px] text-slate-400 mt-1">
-          <span>지난 시간 ({timePassedPercent}%)</span>
-          <span className="text-blue-600 font-medium">남은 시간 ({timeRemainingPercent}%)</span>
+        <div className="mt-4 pt-3 border-t border-slate-100">
+          <div className="flex items-center justify-between text-[11px] text-slate-500 mb-1.5">
+            <span>주기 시작: {formatShortDate(startDate)}</span>
+            <span>다음 급여일: {formatShortDate(endDate)}</span>
+          </div>
+          <div className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden p-0.5 border border-slate-200/50">
+            <div
+              className="bg-blue-600 h-full rounded-full transition-all duration-700 ease-out"
+              style={{ width: `${timePassedPercent}%` }}
+              title={`경과: ${timePassedPercent}%`}
+            />
+          </div>
         </div>
       </div>
     </div>
